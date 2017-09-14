@@ -1,7 +1,7 @@
 Django-PostgresPool
 ===================
 
-This is a fork of original [django-postgrespool](https://github.com/kennethreitz/django-postgrespool).
+This is a fork of original `django-postgrespool <https://github.com/kennethreitz/django-postgrespool>`_.
 
 
 Usage
@@ -22,7 +22,7 @@ If you're using the `dj-database-url <https://crate.io/packages/dj-database-url/
 
     import dj_database_url
 
-    DATABASES = {'default': dj_database_url.config(engine='django_postgrespool')}
+    DATABASES = {'default': dj_database_url.config(engine='django_postgrespool2')}
 
 If you're using `south <http://south.aeracode.org>`_:
 
