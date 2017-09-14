@@ -101,3 +101,24 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
         else:
             pool.dispose()
             del db_pool.pools[key]
+
+    def get_new_connection(self, conn_params):
+        # get new connection through pool, not creating a new one outside.
+        connection = db_pool.connect(**conn_params)
+        return connection
+
+    def _set_autocommit(self, autocommit):
+        # fix autocommit setting not working in proxied connection
+        with self.wrap_database_errors:
+            if self.psycopg2_version >= (2, 4, 2):
+                self.connection.connection.autocommit = autocommit
+            else:
+                if autocommit:
+                    level = psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT
+                else:
+                    level = self.isolation_level
+                self.connection.connection.set_isolation_level(level)
+
+    def is_usable(self):
+        # https://github.com/kennethreitz/django-postgrespool/issues/24
+        return not self.connection.closed

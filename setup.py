@@ -1,18 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-import os
-import sys
-
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
-
-
-if sys.argv[-1] == "publish":
-    os.system("python setup.py sdist upload")
-    sys.exit()
+from setuptools import setup
 
 required = [
     'psycopg2',
@@ -20,14 +8,14 @@ required = [
 ]
 
 setup(
-    name='django-postgrespool',
-    version='0.3.0',
+    name='django-postgrespool2',
+    version='0.1.0',
     description='Postgres Connection Pooling for Django.',
     long_description=open('README.rst').read(),
-    author='Kenneth Reitz',
-    author_email='me@kennethreitz.com',
-    url='https://github.com/kennethreitz/django-postgrespool',
-    packages= ['django_postgrespool'],
+    author='lcd1232',
+    author_email='malexey1984@gmail.com',
+    url='https://github.com/lcd1232/django-postgrespool2',
+    packages= ['django_postgrespool2'],
     install_requires=required,
     license='MIT',
     classifiers=(

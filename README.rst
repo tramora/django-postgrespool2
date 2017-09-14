@@ -1,19 +1,19 @@
 Django-PostgresPool
 ===================
 
-This is a simple Postgres Connection Pooling backend for Django 1.4+, powered by the lovely and beautiful SQLAlchemy.
+This is a fork of original [django-postgrespool](https://github.com/kennethreitz/django-postgrespool).
 
 
 Usage
 -----
 
-Using Django-PostgresPool is simple, just set ``django_postgrespool`` as your connection engine:
+Using Django-PostgresPool is simple, just set ``django_postgrespool2`` as your connection engine:
 
 ::
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django_postgrespool'
+            'ENGINE': 'django_postgrespool2'
 
 
 If you're using the `dj-database-url <https://crate.io/packages/dj-database-url/>`_ module:
@@ -41,7 +41,7 @@ Installation
 
 Installing Django-PostgresPool is simple, with pip::
 
-    $ pip install django-postgrespool
+    $ pip install django-postgrespool2
 
 Configuration
 -------------
