@@ -1,5 +1,8 @@
-Django-PostgresPool
-===================
+.. image:: https://badge.fury.io/py/django-postgrespool2.svg
+    :target: https://badge.fury.io/py/django-postgrespool2
+
+Django-PostgresPool2
+====================
 
 This is a fork of original `django-postgrespool <https://github.com/kennethreitz/django-postgrespool>`_.
 
