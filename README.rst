@@ -7,10 +7,18 @@ Django-PostgresPool2
 This is a fork of original `django-postgrespool <https://github.com/kennethreitz/django-postgrespool>`_.
 
 
+Installation
+------------
+
+Installing Django-PostgresPool2 is simple, with pip::
+
+    $ pip install django-postgrespool2
+
+
 Usage
 -----
 
-Using Django-PostgresPool is simple, just set ``django_postgrespool2`` as your connection engine:
+Using Django-PostgresPool2 is simple, just set ``django_postgrespool2`` as your connection engine:
 
 ::
 
@@ -19,7 +27,7 @@ Using Django-PostgresPool is simple, just set ``django_postgrespool2`` as your c
             'ENGINE': 'django_postgrespool2'
 
 
-If you're using the `dj-database-url <https://crate.io/packages/dj-database-url/>`_ module:
+If you're using the `dj-database-url <https://github.com/kennethreitz/dj-database-url>`_ module:
 
 ::
 
@@ -37,14 +45,6 @@ If you're using `south <http://south.aeracode.org>`_:
 
 
 Everything should work as expected.
-
-
-Installation
-------------
-
-Installing Django-PostgresPool is simple, with pip::
-
-    $ pip install django-postgrespool2
 
 Configuration
 -------------
@@ -68,8 +68,3 @@ The total simultaneous connections the pool will allow is ``pool_size + max_over
 As an example, databases in the `Heroku Postgres <https://postgres.heroku.com>`_ starter tier have a maximum connection limit of 20. In that case your ``pool_size`` and ``max_overflow``, when combined, should not exceed 20.
 
 Check out the official `SQLAlchemy Connection Pooling <http://docs.sqlalchemy.org/en/latest/core/pooling.html#sqlalchemy.pool.QueuePool.__init__>`_ docs to learn more about the optoins that can be defined in ``DATABASE_POOL_ARGS``.
-
-Django 1.3 Support
-------------------
-
-django-postgrespool currently supports Django 1.4 and greater. See `this ticket <https://github.com/kennethreitz/django-postgrespool/pull/9>`_ for 1.3 support.
