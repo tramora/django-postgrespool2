@@ -128,7 +128,7 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
     def _set_autocommit(self, autocommit):
         # fix autocommit setting not working in proxied connection
         with self.wrap_database_errors:
-            if self.psycopg2_version >= (2, 4, 2):
+            if not hasattr(self, 'psycopg2_version') or self.psycopg2_version >= (2, 4, 2):
                 self.connection.connection.autocommit = autocommit
             else:
                 if autocommit:
