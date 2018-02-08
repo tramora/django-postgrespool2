@@ -4,7 +4,7 @@ from setuptools import setup
 from django_postgrespool2 import __version__, __author__
 
 required = [
-    'sqlalchemy'
+    'sqlalchemy',
 ]
 
 setup(
@@ -15,7 +15,7 @@ setup(
     author=__author__,
     author_email='malexey1984@gmail.com',
     url='https://github.com/lcd1232/django-postgrespool2',
-    packages= ['django_postgrespool2'],
+    packages=['django_postgrespool2'],
     install_requires=required,
     license='MIT',
     classifiers=(
