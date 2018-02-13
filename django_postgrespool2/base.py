@@ -5,7 +5,6 @@ from functools import partial
 
 from sqlalchemy import event
 from sqlalchemy.pool import manage, QueuePool
-from psycopg2 import InterfaceError, ProgrammingError, OperationalError
 
 from django.conf import settings
 
@@ -130,7 +129,7 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
         with self.wrap_database_errors:
             if not hasattr(self, 'psycopg2_version') or self.psycopg2_version >= (2, 4, 2):
                 if self.connection.connection.get_transaction_status() == psycopg2.extensions.TRANSACTION_STATUS_INTRANS:
-                    self.connection.connection.rollback()                
+                    self.connection.connection.rollback()
                 self.connection.connection.autocommit = autocommit
             else:
                 if autocommit:
