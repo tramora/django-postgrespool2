@@ -28,8 +28,10 @@ db_pool = manage(Database, **pool_args)
 
 log = logging.getLogger('z.pool')
 
+
 def _log(message, *args):
     log.debug(message)
+
 
 # Only hook up the listeners if we are in debug mode.
 if settings.DEBUG:
@@ -83,13 +85,17 @@ def is_disconnect(e, connection, cursor):
 
 class DatabaseCreation(Psycopg2DatabaseCreation):
     def destroy_test_db(self, *args, **kw):
-        """Ensure connection pool is disposed before trying to drop database."""
+        """
+        Ensure connection pool is disposed before trying to drop database.
+        """
         self.connection._dispose()
         super(DatabaseCreation, self).destroy_test_db(*args, **kw)
 
 
 class DatabaseWrapper(Psycopg2DatabaseWrapper):
     """SQLAlchemy FTW."""
+    vendor = 'postgresql'
+    display_name = 'PostgreSQL'
 
     def __init__(self, *args, **kwargs):
         super(DatabaseWrapper, self).__init__(*args, **kwargs)
@@ -127,8 +133,10 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
     def _set_autocommit(self, autocommit):
         # fix autocommit setting not working in proxied connection
         with self.wrap_database_errors:
-            if not hasattr(self, 'psycopg2_version') or self.psycopg2_version >= (2, 4, 2):
-                if self.connection.connection.get_transaction_status() == psycopg2.extensions.TRANSACTION_STATUS_INTRANS:
+            if not hasattr(self, 'psycopg2_version') \
+                    or self.psycopg2_version >= (2, 4, 2):
+                if self.connection.connection.get_transaction_status() == \
+                        psycopg2.extensions.TRANSACTION_STATUS_INTRANS:
                     self.connection.connection.rollback()
                 self.connection.connection.autocommit = autocommit
             else:
