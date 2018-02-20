@@ -8,6 +8,7 @@ from sqlalchemy.pool import manage, QueuePool
 
 from django.conf import settings
 
+# If modules loaded from postgis we don't need to load these modules again
 if 'Psycopg2DatabaseWrapper' not in globals():
     try:
         # Django >= 1.9
