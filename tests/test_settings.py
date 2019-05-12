@@ -12,11 +12,14 @@ DATABASES = {
     }
 }
 
+DATABASE_POOL_ARGS = {
+    'echo': True
+}
+
 INSTALLED_APPS = [
-    'django.contrib.contenttypes',
-    'django.contrib.sites',
     'django.contrib.auth',
-    'django.contrib.admin',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
     'tests',
 ]
 

@@ -35,21 +35,17 @@ If you're using the `dj-database-url <https://github.com/kennethreitz/dj-databas
 
     DATABASES = {'default': dj_database_url.config(engine='django_postgrespool2')}
 
-If you're using `south <http://south.aeracode.org>`_:
-
-::
-
-    SOUTH_DATABASE_ADAPTERS = {
-        'default': 'south.db.postgresql_psycopg2'
-    }
-
 
 Everything should work as expected.
 
 Configuration
 -------------
 
-Optionally, you can provide additional options to pass to SQLAlchemy's pool creation::
+Optionally, you can provide pool class to construct the pool (default ``sqlalchemy.pool.QueuePool``) or additional options to pass to SQLAlchemy's pool creation.
+
+::
+
+    DATABASE_POOL_CLASS = 'sqlalchemy.pool.QueuePool'
 
     DATABASE_POOL_ARGS = {
         'max_overflow': 10,
