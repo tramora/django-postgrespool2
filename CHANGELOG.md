@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.0.0 - 2019-09-09
+### Added
+- New setting `DATABASE_POOL_CLASS`, thanks [mozartilize](https://github.com/mozartilize)
+## Changed
+- Rewrite internal logic of library, thanks [mozartilize](https://github.com/mozartilize)
+### Removed
+- Remove support python 3.3
+- Remove support django 1.7
+### Fixed
+- Add missed backend `django_postgrespool2.postgis`
+
 ## 0.2.0 - 2018-02-13
 ### Added
 - Now you can specify backend for engine. Example:
