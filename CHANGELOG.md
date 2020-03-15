@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 1.0.1 - 2020-03-15
+### Fixed
+- Fixed installation on python 3.7, thanks [chickahoona](https://github.com/lcd1232/django-postgrespool2/pull/16)
+
 ## 1.0.0 - 2019-09-09
 ### Added
 - New setting `DATABASE_POOL_CLASS`, thanks [mozartilize](https://github.com/mozartilize)
