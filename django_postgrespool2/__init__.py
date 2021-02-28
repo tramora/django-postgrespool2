@@ -1,4 +1,2 @@
-# -*- coding: utf-8 -*-
-version = (1, 0, 1)
-__version__ = '.'.join(str(n) for n in version)
+__version__ = "2.0.1rc9"
 __author__ = 'lcd1232'
