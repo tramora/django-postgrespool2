@@ -5,57 +5,20 @@ matrix:
   - env: TOXENV=py36-djmaster
   - env: TOXENV=py37-djmaster
   - env: TOXENV=py38-djmaster
+  - env: TOXENV=py39-djmaster
   include:
-  - python: 2.7
-    env: TOXENV=py27-dj18
-  - python: 2.7
-    env: TOXENV=py27-dj19
-  - python: 2.7
-    env: TOXENV=py27-dj110
-  - python: 2.7
-    env: TOXENV=py27-dj111
-  - python: 3.4
-    env: TOXENV=py34-dj18
-  - python: 3.4
-    env: TOXENV=py34-dj19
-  - python: 3.4
-    env: TOXENV=py34-dj110
-  - python: 3.4
-    env: TOXENV=py34-dj111
-  - python: 3.5
-    env: TOXENV=py35-dj18
-  - python: 3.5
-    env: TOXENV=py35-dj19
-  - python: 3.5
-    env: TOXENV=py35-dj110
-  - python: 3.5
-    env: TOXENV=py35-dj111
-  - python: 3.5
-    env: TOXENV=py35-dj22
-  - python: 3.6
-    env: TOXENV=py36-dj111
-  - python: 3.6
-    env: TOXENV=py36-dj22
-  - python: 3.6
-    env: TOXENV=py36-dj30
   - python: 3.6
     env: TOXENV=py36-djmaster
   - python: 3.7
-    env: TOXENV=py37-dj22
-  - python: 3.7
-    env: TOXENV=py37-dj30
-  - python: 3.7
     env: TOXENV=py37-djmaster
   - python: 3.8
-    env: TOXENV=py38-dj22
-  - python: 3.8
-    env: TOXENV=py38-dj30
-  - python: 3.8
     env: TOXENV=py38-djmaster
+  - python: 3.9
+    env: TOXENV=py39-djmaster
 install:
 - pip install tox
 script:
-- tox -e $TOXENV
+- tox -e $TOXENV --verbose
 addons:
   postgresql: '10'
   apt:
@@ -63,7 +26,8 @@ addons:
     - postgresql-10
     - postgresql-client-10
 before_script:
-- psql -c 'create database postgrespool_test;' -U postgres
+- psql -c 'create database pool;' -U postgres
+- psql -c "CREATE USER pool WITH PASSWORD 'pool';" -U postgres
 deploy:
   provider: pypi
   user: lcd1232

@@ -1,37 +1,28 @@
-# -*- coding: utf-8 -*-
-from importlib import import_module
 import logging
 from functools import partial
+from importlib import import_module
 
-from sqlalchemy import event
-from sqlalchemy.pool import manage
-from sqlalchemy.dialects import postgresql
-from django.dispatch import Signal
 from django.conf import settings
-
-if 'Psycopg2DatabaseWrapper' not in globals():
-    try:
-        # Django >= 1.9
-        from django.db.backends.postgresql.base import (
-            psycopg2,
-            Database,
-            DatabaseWrapper as Psycopg2DatabaseWrapper,
-        )
-        from django.db.backends.postgresql.creation import (
-            DatabaseCreation as Psycopg2DatabaseCreation,
-        )
-        from django.db.backends.postgresql.utils import utc_tzinfo_factory
-    except ImportError:
-        from django.db.backends.postgresql_psycopg2.base import (
-            psycopg2,
-            Database,
-            DatabaseWrapper as Psycopg2DatabaseWrapper,
-        )
-        from django.db.backends.postgresql_psycopg2.creation import (
-            DatabaseCreation as Psycopg2DatabaseCreation,
-        )
-        from django.db.backends.postgresql_psycopg2.utils import utc_tzinfo_factory
-
+from django.db.backends.postgresql.base import (
+    psycopg2,
+    Database,
+    DatabaseWrapper as Psycopg2DatabaseWrapper,
+)
+from django.db.backends.postgresql.creation import DatabaseCreation as Psycopg2DatabaseCreation
+from django.dispatch import Signal
+try:
+    from django.utils.asyncio import async_unsafe
+except ImportError:
+    # dummy decorator
+    def async_unsafe(func):
+        return func
+try:
+    from django.db.backends.postgresql.utils import utc_tzinfo_factory
+except ImportError:
+    utc_tzinfo_factory = None
+from sqlalchemy import event
+from sqlalchemy.dialects import postgresql
+from sqlalchemy.pool import manage
 
 # DATABASE_POOL_ARGS should be something like:
 # {'max_overflow':10, 'pool_size':5, 'recycle':300}
@@ -98,6 +89,7 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
             with self.wrap_database_errors:
                 return self._pool_connection.close()
 
+    @async_unsafe
     def create_cursor(self, name=None):
         if name:
             # In autocommit mode, the cursor will be used outside of a
@@ -109,8 +101,14 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
         cursor.tzinfo_factory = utc_tzinfo_factory if settings.USE_TZ else None
         return cursor
 
+    def tzinfo_factory(self, offset):
+        if utc_tzinfo_factory is not None:
+            return utc_tzinfo_factory
+        return self.timezone
+
     def dispose(self):
-        """Dispose of the pool for this instance, closing all connections.
+        """
+        Dispose of the pool for this instance, closing all connections.
         """
         self.close()
         self._pool_connection = None
@@ -122,6 +120,7 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
         db_pool.dispose(**conn_params)
         pool_disposed.send(sender=self.__class__, connection=self)
 
+    @async_unsafe
     def get_new_connection(self, conn_params):
         if not self._pool:
             self._pool = db_pool.get_pool(**conn_params)
