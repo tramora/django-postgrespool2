@@ -1,6 +1,6 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-## 2.0.0 - 2021-02-28
+## 2.0.1 - 2021-02-28
 ### Added
 - Support django 2.2, 3.0 and 3.1
 - Support python 3.6, 3.7, 3.8 and 3.9
