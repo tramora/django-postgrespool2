@@ -28,3 +28,6 @@ pip-log.txt
 
 # Sublime Codeintel
 .codeintel/
+
+# virtualenv
+venv/
