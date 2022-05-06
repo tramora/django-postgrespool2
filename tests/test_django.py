@@ -4,7 +4,7 @@ from .models import DogModel
 
 
 class TestPool(TestCase):
-    databases = ["default", "psycopg"]
+    databases = {"default", "psycopg"}
 
     def test_simple_request(self):
         DogModel.objects.create(name='wow')
