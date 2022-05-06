@@ -11,6 +11,13 @@ DATABASES = {
         "USER": "pool",
         "PASSWORD": "pool",
         "HOST": os.environ["DJANGO_DB_HOST"],
+    },
+    "psycopg": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "pool",
+        "USER": "pool",
+        "PASSWORD": "pool",
+        "HOST": os.environ["DJANGO_DB_HOST"],
     }
 }
 

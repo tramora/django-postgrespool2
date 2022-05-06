@@ -1,0 +1,9 @@
+services:
+  postgres_backend:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: pool
+      POSTGRES_USER: pool
+      POSTGRES_PASSWORD: pool
