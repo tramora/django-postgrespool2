@@ -16,10 +16,6 @@ except ImportError:
     # dummy decorator
     def async_unsafe(func):
         return func
-try:
-    from django.db.backends.postgresql.utils import utc_tzinfo_factory
-except ImportError:
-    utc_tzinfo_factory = None
 from sqlalchemy import event
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.pool import manage
@@ -98,12 +94,10 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
                 name, scrollable=False, withhold=self.connection.autocommit)
         else:
             cursor = self._pool_connection.cursor()
-        cursor.tzinfo_factory = utc_tzinfo_factory if settings.USE_TZ else None
+        cursor.tzinfo_factory = self.tzinfo_factory if settings.USE_TZ else None
         return cursor
 
     def tzinfo_factory(self, offset):
-        if utc_tzinfo_factory is not None:
-            return utc_tzinfo_factory
         return self.timezone
 
     def dispose(self):

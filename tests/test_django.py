@@ -12,6 +12,6 @@ class TestPool(TestCase):
     @override_settings(USE_TZ=True, TIME_ZONE='Asia/Hong_Kong')
     def test_datetime_timezone(self):
         dog = DogModel.objects.create(name="wow", created=timezone.now())
-        self.assertIsNotNone(dog.created.tzinfo)
+        self.assertEqual(dog.created.tzname(), "UTC")
         dog = DogModel.objects.get(name="wow")
-        self.assertIsNotNone(dog.created.tzinfo)
+        self.assertEqual(dog.created.tzname(), "UTC")
