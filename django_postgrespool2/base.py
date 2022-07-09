@@ -98,7 +98,7 @@ class DatabaseWrapper(Psycopg2DatabaseWrapper):
                 name, scrollable=False, withhold=self.connection.autocommit)
         else:
             cursor = self._pool_connection.cursor()
-        cursor.tzinfo_factory = utc_tzinfo_factory if settings.USE_TZ else None
+        cursor.tzinfo_factory = self.tzinfo_factory if settings.USE_TZ else None
         return cursor
 
     def tzinfo_factory(self, offset):
